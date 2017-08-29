@@ -1,0 +1,83 @@
+
+<html>
+<head>
+    <title>测试服务</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="ref/bootstrap4/dist/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function queryData(url,ps,callback) {
+
+                $.ajax({
+                    type       : "GET",
+                    url        : url,
+                    crossDomain: true,
+                    //beforeSend : function() {$.mobile.loading('show')},
+                    //complete   : function() {$.mobile.loading('hide')},
+                    data       :ps,// {username : 'subin', password : 'passwordx'},
+                    dataType   : 'json',
+                    success    : function(response) {
+                        console.error(response);
+                        alert('Works!');
+                        callback(response);
+                    },
+                    error      : function(e) {
+                        alert(e.statusText);
+                    }
+                });
+            }
+
+            $('#testbtn').on('click',function (e) {
+                var ps={name:'xiaobao',id:10}
+//                $.getJSON('test/tel.do',ps,function (json) {
+//                    $('#test').html(json);
+//                });
+                var url = $('#url').val();
+                queryData(url,ps,function (json) {
+                    alert(json);
+                });
+            });
+            $('#testbtn2').on('click',function (e) {
+                var url = $('#url2').val();
+                var ps={name:'xiaobao',id:10}
+                $.getJSON(url,ps,function (json) {
+                    $('#test').html(json);
+                });
+
+            });
+            $('#testbtn3').on('click',function (e) {
+                var url = $('#url3').val();
+                //http://172.16.3.224:8080/ydyw/todoInfoAction.action?number=PM-031200-00338700&_=1495856962677
+                var ps={number:'PM-031200-00338700'}
+                $.getJSON(url,ps,function (json) {
+                    $('#test').html(json);
+                });
+
+            })
+
+        });
+    </script>
+</head>
+
+<body>
+spring mvc mybetis
+<div id="test">
+
+</div>
+<input type="text"  style="width:100%;height:40px;margin: 40px;" id="url" name="url" value="http://www.gzwise.top/wxtest/test/tel.do"/>
+<br />
+<button id="testbtn" style="width:100%;height:40px;background-color: green;">测试服务</button>
+
+
+<input type="text"  style="width:100%;height:40px;margin: 40px;" id="url2" name="url" value="http://172.16.3.184:8080/wxtest/test/tel.do"/>
+<br />
+<button id="testbtn2" style="width:100%;height:40px;background-color: green;">测试服务2</button>
+
+<input type="text"  style="width:100%;height:40px;margin: 40px;" id="url3" name="url" value="http://www.gzwise.top/ydyw/todoInfoAction.action"/>
+<br />
+<button id="testbtn3" style="width:100%;height:40px;background-color: green;">测试服务3</button>
+
+</body>
+</html>
